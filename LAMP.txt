@@ -1,0 +1,108 @@
+REPOSITORIO GITHUB
+https://github.com/clockworkcomputer/lampregister.git
+
+DESCARGAR REPOSITORIO
+git clone https://github.com/clockworkcomputer/lampregister.git
+
+CAMBIAR HOSTNAME - OPCIONAL
+sudo hostnamectl set-hostname docker.local
+host docker.local
+
+CREAR DIRECTORIO LAMP-DOCKER
+mkdir lamp-docker && cd lamp-docker
+
+CREAR COMPOSE 
+sudo nano docker-compose.yml
+****************************
+
+LEVANTAMOS EL CONTENEDOR
+docker-compose up -d  
+
+CONECTAR A MYSQL
+docker ps
+docker exec -it contenedorid bash 
+mysql -u root -p
+
+CREAMOS TABLA CLIENTE EN DB CONCESIONARIO
+USE concesionario;
+
+CREAR TABLA CLIENTE
+CREATE TABLE cliente (
+    dni VARCHAR(9) PRIMARY KEY,
+    pass VARCHAR(255)
+);
+
+CONECTAR A PHPMYADMIN 
+DIRECCIONIP:8080
+
+CREAR SITE WEB
+cd html 
+sudo nano index.php
+*******************
+
+COMPROBAR CONEXIÓN
+DIRECCIÓNIP/index.php
+
+CREAR CONEXIÓN A BASE DE DATOS
+sudo nano db.php
+****************
+
+COMPROBAR IP DEL CONTENEDOR
+docker inspect contenedorid | grep IPAddress
+
+EN CASO DE ERROR 
+Fatal error: Uncaught Error: Class "mysqli" not found in /var/www/html/db.php:6 Stack trace: #0 {main} thrown in /var/www/html/db.php on line 6
+docker exec -it idcontenedorapache bash
+docker-php-ext-install mysqli
+
+REINICIAMOS CONTENEDOR APACHE
+docker restart idcontenedorapache
+
+CREAR SITEWEB REGISTRO.PHP 
+sudo nano registro.php
+**********************
+
+CREAR SITEWEB LOGIN.PHP
+sudo nano login.php
+*******************
+
+CREAR SITEWEB BIENVENIDA.PHP
+sudo nano bienvenida.php
+************************
+
+SITEWEB POR DEFECTO
+sudo docker cp 18f01859bfe6:/etc/apache2/sites-available/000-default.conf .
+sudo nano 000-default.conf
+sudo docker cp 000-default.conf 18f01859bfe6:/etc/apache2/sites-available/000-default.conf
+
+AÑADIR ESTA LINEA 
+DirectoryIndex index.html index.cgi index.pl index.xhtml index.htm
+
+REINICIAR CONTENEDOR APACHE
+docker restart idcontenedorapache
+
+CAMBIAR PÁGINA POR DEFECTO
+sudo nano index.html
+********************
+
+AÑADIR SERVERNAME
+sudo nano 000-default.conf
+Servername clockworkmotors.docker.local
+sudo docker cp 000-default.conf 18f01859bfe6:/etc/apache2/sites-available/000-default.conf
+docker restart idcontenedorapache
+
+ADMINISTRACÓN DE DOCKER
+LISTAR CONTENEDORES EN EJECUCIÓN
+sudo docker ps
+
+LISTAR CONTENEDORES ACTIVOS E INACTIVOS
+sudo docker ps -a
+
+DETENER TODOS LOS CONTENEDORES
+docker stop $(docker ps -a -q)
+
+ELIMINAR TODOS LOS CONTENEDORES
+docker rm $(docker ps -a -q)
+
+ELIMINAR TODAS LAS IMÁGENES
+docker rmi $(docker images -q)
