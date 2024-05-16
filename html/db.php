@@ -1,5 +1,5 @@
 <?php
-    $host = "172.17.0.2";
+    $host = "IPCONTENEDORMYSQL";
     $usuario = "root";
     $contrasena = "Cursos1";
     $db = "concesionario";
