@@ -85,6 +85,22 @@ CAMBIAR PÁGINA POR DEFECTO
 sudo nano index.html
 ********************
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLOCKWORK COMPUTER</title>
+</head>
+<body>
+    <h1>Páginas de Acceso</h1>
+    <ul>
+        <li><a href="registro.php">Registro</a></li>
+        <li><a href="login.php">Login</a></li>
+    </ul>
+</body>
+</html>
+
 AÑADIR SERVERNAME
 sudo nano 000-default.conf
 Servername clockworkmotors.docker.local
